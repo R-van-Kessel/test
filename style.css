@@ -9,11 +9,15 @@
 
 body {
     margin: 0;
-    background: #e6edf3;              /* LICHTE ACHTERGROND */
-    color: #1b2838;
+    background: #0e1621;
+    color: white;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+
+    position: relative;   /* ⬅️ NIEUW */
+    z-index: 0;            /* ⬅️ basislaag */
 }
+
 
 /* ===== KLEUR VARIANTEN PER PAGINA ===== */
 body.start {
@@ -46,7 +50,7 @@ body.bovenbouw {
     --accent-glow: rgba(231,76,60,0.6);
 }
 
-/* subtiele accent-gloed */
+/* ===== SUBTIELE ACHTERGROND GLOW ===== */
 body::before {
     content: "";
     position: fixed;
@@ -54,7 +58,7 @@ body::before {
     background: radial-gradient(circle at top,
         var(--accent-glow),
         transparent 60%);
-    opacity: 0.15;                    /* iets zichtbaarder */
+    opacity: 0.08;
     pointer-events: none;
     z-index: 0;
 }
@@ -65,13 +69,13 @@ body::before {
     justify-content: center;
     gap: 25px;
     padding: 15px;
-    background: #dce6ef;             /* licht */
+    background: #0b131d;
     z-index: 10;
     position: relative;
 }
 
 .nav a {
-    color: #1b2838;
+    color: #c7d5e0;
     text-decoration: none;
     font-weight: bold;
 }
@@ -93,7 +97,62 @@ h1 {
 
 .site-title {
     position: relative;
+    z-index: 10;          /* ⬅️ zorgt dat het boven de draak staan */
     cursor: default;
+}
+/* ===== INTRO TEKST ===== */
+.intro {
+    max-width: 1200px;      /* ⬅️ hoe breed de tekst mag zijn */
+    margin: 40px auto;     /* ⬅️ centreert horizontaal */
+    padding: 0 20px;       /* ⬅️ ruimte links/rechts op kleine schermen */
+    text-align: center;    /* ⬅️ centreert de tekst zelf */
+    font-size: 16px;       /* ⬅️ tekstgrootte */
+    line-height: 1.5;      /* ⬅️ regelafstand */
+    position: relative;   /* ⬅️ nodig voor z-index */
+    z-index: 10;          /* ⬅️ zorgt dat het boven de draak staan */
+}
+
+/* ===== STAPPEN (STARTPAGINA) ===== */
+.steps {
+    display: flex;                 /* zet de 3 stappen naast elkaar */
+    justify-content: center;       /* centreert alles */
+    align-items: center;
+    gap: 30px;                     /* ruimte tussen stappen & pijlen */
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 0 20px;
+   position: relative;   /* ⬅️ nodig voor z-index */
+    z-index: 10;          /* ⬅️ zorgt dat steps boven de draak staan */
+}
+
+/* ===== INDIVIDUELE STAP ===== */
+.step {
+    width: 400px;                  /* grootte van elke stap */
+    text-align: center;
+}
+
+/* ===== AFBEELDING ===== */
+.step img {
+    width: 100%;
+    aspect-ratio: 1 / 1;           /* vierkant */
+    object-fit: contain;
+    border-radius: 16px;
+    background: #1b2838;
+    padding: 10px;
+}
+
+/* ===== TEKST ===== */
+.step {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #66c0f4;
+}
+
+/* ===== PIJL ===== */
+.arrow {
+    font-size: 36px;
+    color: #66c0f4;
+    opacity: 0.8;
 }
 
 /* ===== DRAAK ===== */
@@ -105,13 +164,13 @@ h1 {
     object-fit: contain;
     opacity: 0;
     pointer-events: none;
-    z-index: 5;
+    z-index: -1; /* ⬅️ expliciet laag */
     transition: opacity 0.4s ease;
     filter: drop-shadow(0 0 60px var(--accent-glow));
 }
 
 .site-title:hover .dragon {
-    opacity: 0.18;
+    opacity: 0.5;
 }
 
 /* ===== GRID (GAMES) ===== */
@@ -130,10 +189,10 @@ h1 {
 .game,
 .card {
     aspect-ratio: 1 / 1;
-    background: #f4f7fa;              /* licht */
-    color: #1b2838;
+    background: #1b2838;
     border-radius: 14px;
     text-decoration: none;
+    color: white;
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -166,6 +225,8 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px;              /* ⬅️ RUIMTE VANAF DE RAND */
+    box-sizing: border-box;     /* ⬅️ belangrijk */
     background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -186,30 +247,7 @@ h1 {
 .title,
 .card-title {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     color: white;
-}
-
-/* ===== STARTPAGINA BLOKKEN ===== */
-.sections {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 0 20px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1000px) {
-    .sections {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .sections {
-        grid-template-columns: repeat(1, 1fr);
-    }
-}
+} 
